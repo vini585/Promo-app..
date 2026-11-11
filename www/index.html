@@ -2,81 +2,218 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Caça-Promo</title>
 <style>
-:root{--bg:#eef1f4;--card:#fff;--ink:#16181c;--mut:#69707a;--line:#dde2e8;--tag:#ffc21a;--tagink:#1a1400;--ok:#14804a}
-:root[data-t=dark]{--bg:#0f1115;--card:#181b21;--ink:#eef0f3;--mut:#8f97a3;--line:#262b33;--ok:#4cc38a}
-*{box-sizing:border-box;margin:0}
+:root{--bg:#f4f5f9;--card:#fff;--ink:#14151c;--mut:#666d7c;--line:#dfe2ea;--acc:#5b2cff;--acc2:#e0148c;--tagink:#fff;--ok:#12794a;--glow:none;--tglow:none}
+:root[data-t=dark]{--bg:#090912;--card:#12121f;--ink:#eef0ff;--mut:#8c90ad;--line:#25253d;--acc:#00f0ff;--acc2:#ff2bd6;--tagink:#06060d;--ok:#3dffa3;--glow:0 0 14px #00f0ff88,inset 0 0 8px #00f0ff22;--tglow:0 0 12px #00f0ffaa}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
 body{font:16px/1.4 system-ui,sans-serif;background:var(--bg);color:var(--ink);padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 header{position:sticky;top:0;background:var(--bg);z-index:5;padding:12px 16px 8px;border-bottom:1px solid var(--line)}
 .top{display:flex;align-items:center;gap:10px}
-h1{font-size:22px;font-weight:800;flex:1;letter-spacing:-.5px}
-button{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--tag);outline-offset:2px}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+h1{font-size:23px;font-weight:900;flex:1;letter-spacing:-.5px;text-shadow:var(--tglow);color:var(--acc)}
+button{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;transition:.2s}
+button:active{transform:scale(.94)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.tabs{display:flex;gap:8px;margin-top:10px}.tabs button{flex:1;font-weight:700}
+.tabs button.on{border-color:var(--acc);color:var(--acc);box-shadow:var(--glow)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 6px;scrollbar-width:none}
 .chips button{white-space:nowrap;border-radius:99px}
-.chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.bar{display:flex;gap:8px;padding:8px 0 0}
-input,textarea{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px;width:100%}
+.chips button.on{border-color:var(--acc);color:var(--acc);box-shadow:var(--glow);font-weight:700}
+.chips.f{padding-top:2px}.chips.f button{font-size:13px;padding:5px 11px}
+.chips.f button.on{border-color:var(--acc2);color:var(--acc2);box-shadow:none}
+.bar{display:flex;gap:8px;padding:6px 0 0}
+input,textarea,select{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 12px;width:100%}
+input:focus{border-color:var(--acc);box-shadow:var(--glow)}
 main{padding:12px 16px 40px;display:grid;gap:10px}
-.card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;text-decoration:none;color:inherit;position:relative}
+.card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;text-decoration:none;color:inherit;position:relative;animation:in .45s both;transition:.2s}
+.card:active{border-color:var(--acc);box-shadow:var(--glow)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .card img{width:96px;height:64px;object-fit:cover;border-radius:10px;background:var(--line);flex:none}
-.card h3{font-size:15px;font-weight:600;line-height:1.25;margin-bottom:4px}
+.card h3{font-size:15px;font-weight:600;line-height:1.25;margin-bottom:4px;padding-right:30px}
 .meta{color:var(--mut);font-size:12px}
 .price{font-weight:800;font-size:17px;color:var(--ok)}
-.old{color:var(--mut);text-decoration:line-through;font-size:13px;margin-left:6px;font-weight:400}
-.off{position:absolute;right:10px;bottom:10px;background:var(--tag);color:var(--tagink);font-weight:900;font-size:15px;padding:3px 9px;border-radius:6px 12px 6px 12px;transform:rotate(-3deg)}
+.old{color:var(--mut);text-decoration:line-through;font-size:13px;margin-left:6px}
+.off{position:absolute;right:10px;bottom:10px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--tagink);font-weight:900;font-size:15px;padding:3px 9px;border-radius:6px 12px 6px 12px;box-shadow:var(--glow)}
+.st{position:absolute;right:6px;top:6px;border:0;background:none;font-size:20px;padding:4px 8px;color:var(--mut)}
+.st.on{color:var(--acc2);text-shadow:0 0 10px var(--acc2)}
 .msg{text-align:center;color:var(--mut);padding:40px 10px}
-#dr{position:fixed;inset:0;background:#0009;display:none;z-index:9}
-#dr.open{display:block}
-#pn{position:absolute;right:0;top:0;bottom:0;width:min(340px,88%);background:var(--bg);padding:calc(16px + env(safe-area-inset-top)) 16px 16px;overflow:auto}
-#pn h2{font-size:14px;margin:18px 0 8px}
-.seg{display:flex;gap:6px}.seg button{flex:1}.seg button.on{background:var(--tag);color:var(--tagink);border-color:var(--tag);font-weight:700}
-textarea{min-height:64px;font-size:13px;margin-bottom:6px}
-@media(prefers-reduced-motion:no-preference){.card:active{transform:scale(.985)}}
+.sk{height:84px;border-radius:16px;background:linear-gradient(90deg,var(--card) 30%,var(--line) 50%,var(--card) 70%);background-size:300% 100%;animation:sh 1.2s infinite}
+@keyframes sh{from{background-position:100% 0}to{background-position:0 0}}
+#dr{position:fixed;inset:0;background:#000a;z-index:9;visibility:hidden;opacity:0;transition:.25s}
+#dr.open{visibility:visible;opacity:1}
+#pn{position:absolute;right:0;top:0;bottom:0;width:min(350px,88%);background:var(--bg);border-left:1px solid var(--acc);box-shadow:var(--glow);padding:calc(16px + env(safe-area-inset-top)) 16px 20px;overflow:auto;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+#dr.open #pn{transform:none}
+#pn h1{margin-bottom:4px}
+#pn h2{font-size:14px;margin:18px 0 8px;color:var(--acc)}
+.seg{display:flex;gap:6px}.seg button{flex:1}
+.seg button.on{border-color:var(--acc);color:var(--acc);box-shadow:var(--glow);font-weight:700}
+textarea{min-height:60px;font-size:13px;margin-bottom:6px}
+.full{width:100%;margin-top:10px}
+.pri{border-color:var(--acc);color:var(--acc);box-shadow:var(--glow);font-weight:700}
+.row{display:flex;gap:8px;margin-top:8px;align-items:center}.row label{font-size:12px;color:var(--mut);flex:1}.row input{flex:1}
+.add{display:grid;grid-template-columns:1fr auto;gap:8px}.add select{grid-column:1}.add button{grid-column:2;grid-row:1/3}
+#toast{position:fixed;left:16px;right:16px;bottom:calc(20px + env(safe-area-inset-bottom));background:var(--card);border:1px solid var(--acc);box-shadow:var(--glow);border-radius:14px;padding:12px 14px;z-index:20;transform:translateY(160%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+#toast.show{transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <header><div class="top"><h1>Caça-Promo</h1><button id="rf" aria-label="Atualizar">↻</button><button id="mn" aria-label="Menu">☰</button></div>
-<div class="chips" id="ch"></div>
-<div class="bar"><input id="q" type="search" placeholder="Buscar nesta categoria"><button id="so">Maior desconto</button></div></header>
+<div class="tabs"><button id="vp" class="on">Promoções</button><button id="vf">★ Favoritos</button></div>
+<div id="pv"><div class="chips" id="ch"></div><div class="chips f" id="fl"></div>
+<div class="bar"><input id="q" type="search" placeholder="Buscar nesta categoria"><button id="so"></button></div></div></header>
 <main id="ls"></main>
+<main id="fv" hidden>
+<div class="add"><input id="wn" placeholder="Nome do jogo ou produto (ex.: God of War)"><select id="wk"><option value="game">Jogo</option><option value="hw">Hardware / produto</option></select><button id="wa" class="pri">＋ Vigiar</button></div>
+<p class="meta">Avisamos quando algo desta lista entrar em promoção (o app precisa estar aberto ou em segundo plano).</p>
+<div id="wl" style="display:grid;gap:10px"></div>
+</main>
+<div id="toast"></div>
 <div id="dr"><div id="pn">
 <h1>Menu</h1>
-<h2>Tema</h2><div class="seg" id="th"><button data-v="dark">Escuro</button><button data-v="light">Claro</button><button data-v="auto">Auto</button></div>
+<h2>Tema</h2><div class="seg" id="th"><button data-v="dark">Preto neon</button><button data-v="light">Branco</button><button data-v="auto">Auto</button></div>
+<h2>Dólar → Real</h2>
+<div class="meta" id="fxi">Buscando cotação…</div>
+<div class="seg" style="margin-top:8px" id="cvt"><button data-v="1">Mostrar em R$</button><button data-v="0">Mostrar em US$</button></div>
+<button id="fxb" class="full">Atualizar cotação</button>
+<div class="row"><label>Cotação manual (opcional)</label><input id="man" type="number" inputmode="decimal" step="0.01" placeholder="ex.: 5.50"></div>
+<div class="row"><label>IOF / taxa extra (%)</label><input id="iof" type="number" inputmode="decimal" step="0.1"></div>
+<div class="row"><label>Conversor rápido</label><input id="cv" type="number" inputmode="decimal" placeholder="US$"></div>
+<div class="meta" id="cvo" style="margin-top:6px"></div>
 <h2>Fontes extras (feeds RSS, um link por linha)</h2><div id="fd"></div>
-<button id="sv" style="width:100%;margin-top:8px">Salvar fontes</button>
-<p class="meta" style="margin-top:16px">Steam usa a API CheapShark (preços em dólar). As demais categorias mostram os feeds RSS que você adicionar.</p>
-<button id="cl" style="width:100%;margin-top:16px">Fechar</button>
+<button id="sv" class="full pri">Salvar fontes</button>
+<p class="meta" style="margin-top:16px">Steam, Epic e GOG: CheapShark (em dólar). Xbox, PlayStation e Hardware: Reddit (em inglês). Filtros e relevância usam palavras do título e notas de jogos, então são aproximados.</p>
+<button id="cl" class="full">Fechar</button>
 </div></div>
 <script>
-const CATS=[{id:'steam',n:'Steam'},{id:'xbox',n:'Xbox'},{id:'ps',n:'PlayStation'},{id:'hw',n:'Hardware'},{id:'per',n:'Periféricos'},{id:'casa',n:'Casa e cozinha'}];
+const CATS=[{id:'steam',n:'Steam'},{id:'pc',n:'Epic e GOG'},{id:'xbox',n:'Xbox'},{id:'ps',n:'PlayStation'},{id:'hw',n:'Hardware'},{id:'per',n:'Periféricos'},{id:'casa',n:'Casa e cozinha'}];
+const GC=['steam','pc','xbox','ps'];
+const R='https://www.reddit.com/r/';
+const SRC={steam:[{k:'cs',s:'1'}],pc:[{k:'cs',s:'7,25'}],
+xbox:[{k:'rss',u:R+'GameDeals/search.rss?q=xbox&restrict_sr=1&sort=new',m:'Reddit Xbox'}],
+ps:[{k:'rss',u:R+'GameDeals/search.rss?q=playstation&restrict_sr=1&sort=new',m:'Reddit PlayStation'}],
+hw:[{k:'rss',u:R+'buildapcsales/.rss',m:'Reddit Hardware'}]};
+const STORE={1:'Steam',7:'GOG',25:'Epic'};
+const FR=/god of war|spider-man|last of us|horizon|elden ring|red dead|\bgta\b|grand theft|witcher|cyberpunk|zelda|\bhalo\b|forza|gears|call of duty|\bfc ?\d|fifa|resident evil|final fantasy|assassin|batman|hades|hollow knight|baldur|mortal kombat|tekken|street fighter|minecraft|stardew|persona|nier|sekiro|dark souls|bloodborne|tsushima|uncharted|ratchet|death stranding|starfield|skyrim|fallout|\bdoom\b|dying light|far cry|monster hunter|devil may cry|tomb raider|alan wake|sea of thieves|bioshock|mass effect|dragon age|dishonored|returnal|astro bot|helldivers|palworld|cuphead|celeste|half-life|left 4 dead|rocket league|overwatch|diablo|destiny|borderlands|hogwarts|lies of p|black myth|it takes two|metal gear|silent hill|dead space|like a dragon|yakuza|kingdom come/i;
+const isRel=i=>FR.test(i.t)||+i.mc>=80||(+i.sc>=3000&&+i.sr>=85);
+const score=i=>(FR.test(i.t)?1000:0)+(+i.mc||0)+Math.log10((+i.sc||0)+1)*10;
+const GAMES=[['Ação',/action|ação|fight|combat|assassin|batman|devil may|doom|hitman|dishonored|ninja|slash/i],['Aventura',/adventure|aventura|zelda|tomb raider|uncharted|explor|quest/i],['RPG',/rpg|witcher|elder scrolls|fallout|final fantasy|dragon age|baldur|persona|souls|diablo|mass effect|cyberpunk/i],['Simulação',/simulat|simulaç|farming|tycoon|\bsims?\b|truck|flight|cities|planet zoo|builder|manager/i],['Estratégia',/strateg|estratég|civilization|total war|xcom|age of|tactics|command/i],['Corrida',/racing|\brace\b|forza|gran turismo|need for speed|dirt|\bf1\b|grid|motorsport|wrc|corrida/i],['Esportes',/fifa|ea sports|\bfc ?2|nba|madden|nhl|pga|football|soccer|golf|sports|wwe|efootball/i],['Tiro',/shooter|\bfps\b|call of duty|battlefield|counter-strike|far cry|halo|apex|rainbow|borderlands|sniper|tiro/i],['Terror',/horror|terror|resident evil|silent hill|dead space|outlast|evil within|dying light/i]];
+const HW=[['Placa de vídeo',/placa de v[ií]deo|\bgpu\b|graphics card|\brtx\b|\bgtx\b|radeon|geforce|\brx ?\d{3,4}|arc a\d/i],['Processador',/processador|\bcpu\b|ryzen|core i\d|processor/i],['Memória RAM',/mem[oó]ria|\bram\b|ddr[345]/i],['SSD / HD',/\bssd\b|nvme|\bhd\b|hdd|hard drive|m\.2/i],['Placa-mãe',/placa-m[ãa]e|motherboard|\b[bxz][56789]\d0/i],['Fonte',/\bfonte\b|\bpsu\b|power supply/i],['Gabinete',/gabinete|\bcase\b|chassis/i],['Monitor',/monitor|ultrawide|\d{2,3} ?hz/i],['Notebook',/notebook|laptop/i]];
+const PER=[['Mouse',/\bmouse|mousepad/i],['Teclado',/teclado|keyboard/i],['Headset',/headset|fone|headphone|earbuds|airpods/i],['Monitor',/monitor|ultrawide/i],['Controle',/controle|gamepad|controller/i],['Webcam',/webcam/i]];
+const CASA=[['Geladeira',/geladeira|refrigerador|fridge|freezer/i],['Air fryer',/air ?fryer|fritadeira/i],['Fogão / Micro-ondas',/fog[ãa]o|micro-?ondas|cooktop|microwave/i],['Lavadora',/lavadora|lava e seca|lavar|washing/i],['Aspirador',/aspirador|vacuum/i],['TV',/\btv\b|televis/i],['Cafeteira',/cafeteira|coffee/i]];
+const GROUP={steam:GAMES,pc:GAMES,xbox:GAMES,ps:GAMES,hw:HW,per:PER,casa:CASA};
 const $=s=>document.querySelector(s);
 const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
 const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
-let cat=LS('cat','steam'),theme=LS('theme','dark'),feeds=LS('feeds',{}),desc=true,items=[];
-function applyTheme(){const t=theme==='auto'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'):theme;document.documentElement.dataset.t=t;document.querySelectorAll('#th button').forEach(b=>b.classList.toggle('on',b.dataset.v===theme))}
-function chips(){$('#ch').innerHTML=CATS.map(c=>`<button data-id="${c.id}" class="${c.id===cat?'on':''}">${c.n}</button>`).join('')}
+let cat=LS('cat','steam'),theme=LS('theme','dark'),feeds=LS('feeds',{}),watch=LS('watch',[]),mode=0,items=[],flt='',relOnly=false,view='promo';
+let fx=LS('fx',{v:0,t:0}),man=LS('man',0),iof=LS('iof',3.5),conv=LS('conv',true);
+if(!CATS.some(c=>c.id===cat))cat='steam';
+const MODES=['Mais recentes','Maior desconto','Mais relevantes'];
+const brl=n=>'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const eff=()=>{const r=man>0?man:fx.v;return r?r*(1+iof/100):0};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-async function steam(){const r=await fetch('https://www.cheapshark.com/api/1.0/deals?storeID=1&onSale=1&pageSize=40&sortBy=Savings');
- return (await r.json()).map(d=>({t:d.title,img:d.thumb,p:'US$ '+(+d.salePrice).toFixed(2),o:'US$ '+(+d.normalPrice).toFixed(2),off:Math.round(+d.savings),url:'https://www.cheapshark.com/redirect?dealID='+d.dealID,m:'Steam'}))}
-async function rss(u){const r=await fetch(u);const x=new DOMParser().parseFromString(await r.text(),'text/xml');
- const host=new URL(u).hostname.replace('www.','');
- return [...x.querySelectorAll('item')].map(i=>{const g=t=>i.querySelector(t)?.textContent||'';const t=g('title');
-  const m=(t+' '+g('description')).match(/R\$\s?[\d.]+,\d{2}/);const im=i.querySelector('enclosure,thumbnail,content')?.getAttribute('url')||'';
-  return{t,img:im,p:m?m[0]:'',o:'',off:0,url:g('link'),m:host+(g('pubDate')?' · '+new Date(g('pubDate')).toLocaleDateString('pt-BR'):'')}})}
-async function load(){const L=$('#ls');L.innerHTML='<p class="msg">Buscando promoções…</p>';
- const jobs=[];if(cat==='steam')jobs.push(steam());(feeds[cat]||[]).forEach(u=>jobs.push(rss(u)));
+const clean=t=>t.replace(/\[[^\]]*\]|\([^)]*\)/g,'').replace(/(R\$|US\$|\$)\s?[\d.,]+/g,'').replace(/-?\d+%\s?(off)?/gi,'').replace(/\s+/g,' ').replace(/[\s–—:|-]+$/,'').trim().slice(0,60);
+const isW=n=>watch.some(w=>w.name.toLowerCase()===n.toLowerCase());
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),5000)}
+function applyTheme(){document.documentElement.dataset.t=theme==='auto'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'):theme;document.querySelectorAll('#th button').forEach(b=>b.classList.toggle('on',b.dataset.v===theme))}
+function chips(){$('#ch').innerHTML=CATS.map(c=>`<button data-id="${c.id}" class="${c.id===cat?'on':''}">${c.n}</button>`).join('');
+ const g=GROUP[cat]||[];const lead=GC.includes(cat)?[['__rel','🔥 Relevantes']]:[];const seen=new Set();
+ $('#fl').innerHTML=g.length?[['','Todos'],...lead,...g].filter(x=>!seen.has(x[0])&&seen.add(x[0])).map(x=>{const on=x[0]==='__rel'?relOnly:x[0]===''?(!flt&&!relOnly):x[0]===flt;return `<button data-f="${x[0]}" class="${on?'on':''}">${x[0]===''?'Todos':x[0]==='__rel'?x[1]:x[0]}</button>`}).join(''):''}
+const mapCS=d=>({t:d.title,img:d.thumb,cur:'USD',pn:+d.salePrice,on:+d.normalPrice,off:Math.round(+d.savings),url:'https://www.cheapshark.com/redirect?dealID='+d.dealID,m:STORE[d.storeID]||'Loja',mc:d.metacriticScore,sr:d.steamRatingPercent,sc:d.steamRatingCount});
+const CSU='https://www.cheapshark.com/api/1.0/deals?onSale=1&pageSize=40&desc=1&storeID=';
+async function cs(s){const rs=await Promise.all(['Savings','Metacritic'].map(o=>fetch(CSU+s+'&sortBy='+o).then(r=>r.json())));return rs.flat().map(mapCS)}
+async function csq(q){return (await (await fetch('https://www.cheapshark.com/api/1.0/deals?onSale=1&pageSize=10&title='+q)).json()).map(mapCS)}
+async function rss(u,label){const r=await fetch(u);const x=new DOMParser().parseFromString(await r.text(),'text/xml');
+ const host=label||new URL(u).hostname.replace('www.','');
+ return [...x.querySelectorAll('item,entry')].map(i=>{const g=t=>i.querySelector(t)?.textContent||'';const t=g('title');
+  const l=i.querySelector('link');const url=l?.getAttribute('href')||l?.textContent||'';
+  const body=g('description')||g('content');
+  const img=i.getElementsByTagName('media:thumbnail')[0]?.getAttribute('url')||i.querySelector('enclosure')?.getAttribute('url')||(body.match(/<img[^>]+src="([^"]+)"/)||[])[1]||'';
+  const pr=(t+' '+body.replace(/<[^>]+>/g,' ')).match(/(R\$|US\$|\$)\s?\d[\d.,]*/);
+  const of=t.match(/-?(\d{1,2})\s?%/);const d=g('pubDate')||g('updated');
+  const o={t,img,off:of?+of[1]:0,url,ts:d?new Date(d).getTime():0,m:host+(d?' · '+new Date(d).toLocaleDateString('pt-BR'):'')};
+  if(pr){if(pr[0].startsWith('R$'))o.p=pr[0];else{const n=parseFloat(pr[0].replace(/[^\d.]/g,''));if(n>0){o.cur='USD';o.pn=n}}}
+  return o})}
+async function load(){const L=$('#ls');
+ L.innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>';
+ const jobs=(SRC[cat]||[]).map(s=>s.k==='cs'?cs(s.s):rss(s.u,s.m));
+ (feeds[cat]||[]).forEach(u=>jobs.push(rss(u)));
  if(!jobs.length){items=[];return render()}
- const rs=await Promise.allSettled(jobs);items=rs.flatMap(r=>r.status==='fulfilled'?r.value:[]);
+ const rs=await Promise.allSettled(jobs);const seen=new Set();
+ items=rs.flatMap(r=>r.status==='fulfilled'?r.value:[]).filter(i=>i.url&&!seen.has(i.url)&&seen.add(i.url));
  render(rs.some(r=>r.status==='rejected')?'Algumas fontes falharam.':'')}
-function render(note=''){const q=$('#q').value.toLowerCase();let a=items.filter(i=>i.t.toLowerCase().includes(q));
- a.sort((x,y)=>desc?y.off-x.off:x.off-y.off);$('#so').textContent=desc?'Maior desconto':'Menor desconto';
+function price(i){const e=eff();
+ if(i.cur==='USD'&&conv&&e)return `<span class="price">≈ ${brl(i.pn*e)}</span>${i.on?`<span class="old">${brl(i.on*e)}</span>`:''}<div class="meta">US$ ${i.pn.toFixed(2)} · cotação ${e.toFixed(2).replace('.',',')}</div>`;
+ if(i.cur==='USD')return `<span class="price">US$ ${i.pn.toFixed(2)}</span>${i.on?`<span class="old">US$ ${i.on.toFixed(2)}</span>`:''}`;
+ return i.p?`<span class="price">${esc(i.p)}</span>`:''}
+function render(note=''){const q=$('#q').value.toLowerCase();
+ const re=(GROUP[cat]||[]).find(x=>x[0]===flt)?.[1];
+ let a=items.filter(i=>i.t.toLowerCase().includes(q)&&(!re||re.test(i.t))&&(!relOnly||isRel(i)));
+ if(mode===1)a=[...a].sort((x,y)=>y.off-x.off);if(mode===2)a=[...a].sort((x,y)=>score(y)-score(x));
+ $('#so').textContent=MODES[mode];
  const L=$('#ls');
- if(!a.length){L.innerHTML=`<p class="msg">${items.length?'Nada encontrado.':'Sem fontes aqui ainda. Abra o menu e adicione um feed RSS de promoções.'}</p>`;return}
- L.innerHTML=(note?`<p class="msg" style="padding:0">${note}</p>`:'')+a.map(i=>`<a class="card" href="${esc(i.url)}" target="_blank" rel="noopener">${i.img?`<img loading="lazy" src="${esc(i.img)}" alt="">`:''}<div><h3>${esc(i.t)}</h3><div>${i.p?`<span class="price">${esc(i.p)}</span>`:''}${i.o?`<span class="old">${esc(i.o)}</span>`:''}</div><div class="meta">${esc(i.m)}</div></div>${i.off?`<span class="off">-${i.off}%</span>`:''}</a>`).join('')}
+ if(!a.length){L.innerHTML=`<p class="msg">${items.length?'Nada encontrado com esse filtro.':'Sem fontes aqui ainda. Abra o menu e cole um feed RSS de promoções.'}</p>`;return}
+ L.innerHTML=(note?`<p class="msg" style="padding:0">${note}</p>`:'')+a.map((i,n)=>{const f=isW(clean(i.t));
+ return `<a class="card" style="animation-delay:${Math.min(n,12)*40}ms" href="${esc(i.url)}" target="_blank" rel="noopener">${i.img?`<img loading="lazy" src="${esc(i.img)}" alt="" onerror="this.remove()">`:''}<div><h3>${esc(i.t)}</h3><div>${price(i)}</div><div class="meta">${esc(i.m)}${+i.mc?' · Metacritic '+i.mc:''}</div></div><button class="st ${f?'on':''}" data-u="${esc(i.url)}" aria-label="Vigiar">${f?'★':'☆'}</button>${i.off?`<span class="off">-${i.off}%</span>`:''}</a>`}).join('')}
+/* ---- Favoritos / vigia ---- */
+async function findDeals(w){const q=encodeURIComponent(w.name);const words=w.name.toLowerCase().split(/\s+/).filter(x=>x.length>1);
+ const jobs=w.kind==='game'?[csq(q),rss(R+'GameDeals/search.rss?q='+q+'&restrict_sr=1&sort=new','Reddit')]:[rss(R+'buildapcsales/search.rss?q='+q+'&restrict_sr=1&sort=new','Reddit')];
+ (feeds[w.kind==='game'?'steam':'hw']||[]).forEach(u=>jobs.push(rss(u)));
+ const rs=await Promise.allSettled(jobs);if(rs.every(r=>r.status==='rejected'))throw 0;
+ const now=Date.now();
+ return rs.flatMap(r=>r.status==='fulfilled'?r.value:[]).filter(i=>words.every(x=>i.t.toLowerCase().includes(x))&&(!i.ts||now-i.ts<14*864e5))}
+const NP=()=>window.Capacitor?.Plugins?.LocalNotifications;
+async function notify(t,b){toast(t+' — '+b);try{await NP()?.schedule({notifications:[{id:Math.floor(Math.random()*2e9),title:t,body:b}]})}catch{}}
+let chk=false,lastChk=0;
+async function checkWatches(){if(chk)return;chk=true;lastChk=Date.now();
+ for(const w of watch){try{const d=await findDeals(w);
+  const nw=d.filter(i=>!(i.url in w.seen)||(i.pn&&w.seen[i.url]>i.pn));
+  d.forEach(i=>w.seen[i.url]=i.pn||0);
+  w.best=d.length?[...d].sort((a,b)=>b.off-a.off)[0]:null;w.t=Date.now();
+  if(nw.length&&w.init){const b=nw[0];notify('🔥 '+w.name+' em promoção',(b.cur==='USD'&&eff()?'≈ '+brl(b.pn*eff()):b.p||('US$ '+b.pn))+' · '+b.m)}
+  w.init=true}catch{}
+  SV('watch',watch);if(view==='fav')renderFav()}
+ chk=false}
+function addWatch(name,kind){name=name.trim();if(!name||isW(name))return false;
+ watch.push({id:Date.now()+Math.random().toString(36).slice(2,6),name,kind,seen:{},best:null,t:0,init:false});SV('watch',watch);
+ try{NP()?.requestPermissions()}catch{}vfLabel();return true}
+function vfLabel(){$('#vf').textContent='★ Favoritos'+(watch.length?' ('+watch.length+')':'')}
+function renderFav(){const L=$('#wl');
+ if(!watch.length){L.innerHTML='<p class="msg">Nada vigiado ainda. Digite um nome acima ou toque na ☆ de uma promoção.</p>';return}
+ L.innerHTML=watch.map(w=>{const b=w.best;return `<div class="card" style="animation:none"><div style="flex:1"><h3>${esc(w.name)} <span class="meta">${w.kind==='game'?'jogo':'hardware'}</span></h3>${b?`<a href="${esc(b.url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;display:block"><div class="price" style="font-size:14px">🔥 Em promoção agora</div><div>${price(b)}</div><div class="meta">${esc(b.t)} · ${esc(b.m)}</div></a>`:`<div class="meta">${w.t?'Sem promoção agora':'Verificando…'}</div>`}${w.t?`<div class="meta">Verificado às ${new Date(w.t).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</div>`:''}</div><button class="st on" style="font-size:16px" data-w="${w.id}" aria-label="Remover">✕</button></div>`}).join('')}
+function setView(v){view=v;$('#pv').hidden=v!=='promo';$('#ls').hidden=v!=='promo';$('#fv').hidden=v!=='fav';
+ $('#vp').classList.toggle('on',v==='promo');$('#vf').classList.toggle('on',v==='fav');if(v==='fav')renderFav()}
+/* ---- cotação ---- */
+async function getRate(force){
+ if(!force&&fx.v&&Date.now()-fx.t<6*3600e3)return fxUI();
+ let v=0;
+ try{const j=await (await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL')).json();v=+j.USDBRL.bid}catch{}
+ if(!(v>0))try{const j=await (await fetch('https://api.frankfurter.app/latest?from=USD&to=BRL')).json();v=+j.rates.BRL}catch{}
+ if(v>0){fx={v,t:Date.now()};SV('fx',fx)}
+ fxUI();if(items.length)render()}
+function fxUI(){const e=eff();
+ $('#fxi').textContent=fx.v?`1 US$ = R$ ${fx.v.toFixed(2).replace('.',',')} (atualizada ${new Date(fx.t).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})})${man>0?' · usando sua cotação manual':''}`:'Sem cotação. Verifique a internet e toque em Atualizar.';
+ document.querySelectorAll('#cvt button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='1')===conv));
+ const v=parseFloat($('#cv').value);$('#cvo').textContent=v>0&&e?`${v} US$ ≈ ${brl(v*e)} (com ${iof}% de taxa) · sem taxa: ${brl(v*(man>0?man:fx.v))}`:''}
 function fdUI(){$('#fd').innerHTML=CATS.map(c=>`<div class="meta">${c.n}</div><textarea data-c="${c.id}" placeholder="https://…/feed">${(feeds[c.id]||[]).join('\n')}</textarea>`).join('')}
-$('#ch').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.dataset.id;SV('cat',cat);chips();load()};
-$('#q').oninput=()=>render();$('#so').onclick=()=>{desc=!desc;render()};$('#rf').onclick=load;
+/* ---- eventos ---- */
+$('#ls').onclick=e=>{const b=e.target.closest('.st');if(!b)return;e.preventDefault();const i=items.find(x=>x.url===b.dataset.u);if(!i)return;
+ const n=clean(i.t);if(isW(n))watch=watch.filter(w=>w.name.toLowerCase()!==n.toLowerCase());else{addWatch(n,GC.includes(cat)?'game':'hw');toast('Vigiando "'+n+'". Veja em Favoritos.');checkWatches()}
+ SV('watch',watch);vfLabel();render()};
+$('#wl').onclick=e=>{const b=e.target.closest('[data-w]');if(!b)return;watch=watch.filter(w=>w.id!==b.dataset.w);SV('watch',watch);vfLabel();renderFav()};
+$('#wa').onclick=()=>{const n=$('#wn').value;if(addWatch(n,$('#wk').value)){$('#wn').value='';renderFav();checkWatches()}else toast('Digite um nome que ainda não esteja na lista.')};
+$('#vp').onclick=()=>setView('promo');$('#vf').onclick=()=>setView('fav');
+$('#ch').onclick=e=>{const b=e.target.closest('button');if(!b)return;cat=b.dataset.id;flt='';relOnly=false;SV('cat',cat);chips();load()};
+$('#fl').onclick=e=>{const b=e.target.closest('button');if(!b)return;const f=b.dataset.f;if(f==='__rel')relOnly=!relOnly;else{flt=f;relOnly=false}chips();render()};
+$('#q').oninput=()=>render();$('#so').onclick=()=>{mode=(mode+1)%3;render()};$('#rf').onclick=()=>{load();getRate(true);checkWatches()};
 $('#mn').onclick=()=>$('#dr').classList.add('open');$('#cl').onclick=()=>$('#dr').classList.remove('open');
 $('#dr').onclick=e=>{if(e.target.id==='dr')$('#dr').classList.remove('open')};
 $('#th').onclick=e=>{const b=e.target.closest('button');if(!b)return;theme=b.dataset.v;SV('theme',theme);applyTheme()};
+$('#cvt').onclick=e=>{const b=e.target.closest('button');if(!b)return;conv=b.dataset.v==='1';SV('conv',conv);fxUI();render();if(view==='fav')renderFav()};
+$('#fxb').onclick=()=>getRate(true);
+$('#man').value=man||'';$('#iof').value=iof;
+$('#man').oninput=e=>{man=parseFloat(e.target.value)||0;SV('man',man);fxUI();render()};
+$('#iof').oninput=e=>{iof=parseFloat(e.target.value)||0;SV('iof',iof);fxUI();render()};
+$('#cv').oninput=fxUI;
 $('#sv').onclick=()=>{document.querySelectorAll('#fd textarea').forEach(t=>feeds[t.dataset.c]=t.value.split('\n').map(s=>s.trim()).filter(s=>/^https?:\/\//.test(s)));SV('feeds',feeds);$('#dr').classList.remove('open');load()};
-applyTheme();chips();fdUI();load();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastChk>30*60e3)checkWatches()});
+setInterval(()=>{if(watch.length)checkWatches()},30*60e3);
+applyTheme();chips();fdUI();fxUI();vfLabel();load();getRate();if(watch.length)checkWatches();
 </script></body></html>
