@@ -10,6 +10,7 @@ body{font:16px/1.4 system-ui,sans-serif;background:var(--bg);color:var(--ink);pa
 header{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 16px 6px}
 .top{display:flex;align-items:center;gap:8px}
 h1{font-size:22px;font-weight:900;flex:1;color:var(--a);letter-spacing:-.5px}
+.sec{font-size:14px;color:var(--a);margin:14px 0 2px}
 button{font:inherit;color:inherit;background:var(--s);border:1px solid var(--ln);border-radius:12px;padding:8px 12px;transition:.2s}
 button:active{transform:scale(.95)}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--a);outline-offset:2px}
@@ -19,23 +20,27 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .chips.s button{font-size:13px;padding:4px 11px;background:none}
 .chips.s button.on{background:none;color:var(--a2);border-color:var(--a2);box-shadow:none}
 input,textarea{font:inherit;color:inherit;background:var(--s);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;width:100%}
-#q{margin-top:8px}
 main{padding:8px 16px calc(90px + env(safe-area-inset-bottom));display:grid;gap:12px;align-content:start}
-.card{display:grid;grid-template-columns:92px 1fr;gap:12px;background:var(--s);border:1px solid var(--ln);border-radius:18px;padding:10px;animation:in .4s both}
+.card{position:relative;display:grid;grid-template-columns:92px 1fr;gap:12px;background:var(--s);border:1px solid var(--ln);border-radius:18px;padding:10px;animation:in .4s both}
 @keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .card img,.ph{width:92px;height:92px;object-fit:cover;border-radius:12px;background:var(--ln);display:grid;place-items:center;font-size:28px}
 .tag{font-size:12px;font-weight:700;color:var(--a2)}
-.card h3{font-size:15px;font-weight:600;line-height:1.25;margin:2px 0 6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.bst{background:var(--ok);color:var(--on);border-radius:6px;padding:1px 6px;margin-left:4px}
+.card h3{font-size:15px;font-weight:600;line-height:1.25;margin:2px 0 6px;padding-right:26px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.pr b{font-size:19px;color:var(--ok)}
+.off{background:var(--a2);color:#fff;font-size:12px;font-weight:800;padding:2px 7px;border-radius:6px}
 .cp{border-style:dashed;border-color:var(--a);color:var(--a);padding:3px 9px;font-size:13px;border-radius:8px}
 .meta{color:var(--mut);font-size:12px;margin-top:4px}
+.sv{position:absolute;top:6px;right:6px;border:0;background:none;font-size:21px;padding:4px 8px;color:var(--mut)}
+.sv.on{color:var(--a2);text-shadow:0 0 10px var(--a2)}
+.sv.rm{font-size:12px;border:1px dashed var(--ln);background:var(--s);padding:3px 8px;border-radius:8px;top:8px;right:8px}
 .go{grid-column:1/3;text-align:center;text-decoration:none;color:var(--on);background:var(--a);font-weight:700;padding:9px;border-radius:12px;box-shadow:var(--g)}
 .msg{text-align:center;color:var(--mut);padding:36px 12px}
-.msg button{margin-top:12px;border-color:var(--a);color:var(--a)}
+.msg button,.mo{margin-top:12px;border-color:var(--a);color:var(--a)}
 .sk{height:130px;border-radius:18px;background:linear-gradient(90deg,var(--s) 30%,var(--ln) 50%,var(--s) 70%);background-size:300% 100%;animation:sh 1.2s infinite}
 @keyframes sh{from{background-position:100% 0}to{background-position:0 0}}
 nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--s);border-top:1px solid var(--ln);padding-bottom:env(safe-area-inset-bottom);z-index:6}
-nav button{flex:1;border:0;border-radius:0;background:none;display:grid;gap:0;font-size:20px;padding:8px 0 6px;color:var(--mut)}
+nav button{flex:1;border:0;border-radius:0;background:none;display:grid;font-size:20px;padding:8px 0 6px;color:var(--mut)}
 nav button span{font-size:11px}
 nav button.on{color:var(--a);text-shadow:var(--g)}
 #dr{position:fixed;inset:0;background:#000a;z-index:9;visibility:hidden;opacity:0;transition:.25s}
@@ -46,98 +51,139 @@ nav button.on{color:var(--a);text-shadow:var(--g)}
 .seg{display:flex;gap:6px}.seg button{flex:1}.seg button.on{border-color:var(--a);color:var(--a);font-weight:700;box-shadow:var(--g)}
 .full{width:100%;margin-top:10px}.pri{border-color:var(--a);color:var(--a);font-weight:700}
 .lk{display:inline-block;padding:7px 12px;border:1px solid var(--ln);border-radius:99px;background:var(--s);color:inherit;text-decoration:none;margin:0 6px 8px 0;font-size:14px}
-.row{display:flex;gap:8px}
-#toast{position:fixed;left:16px;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));background:var(--s);border:1px solid var(--a);border-radius:14px;padding:12px 14px;z-index:20;transform:translateY(200%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-#toast.show{transform:none}
+.row{display:flex;gap:8px;align-items:center}
+#toast{position:fixed;left:16px;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));background:var(--s);border:1px solid var(--a);border-radius:14px;padding:12px 14px;z-index:20;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(20px);transition:.3s}
+#toast.show{opacity:1;visibility:visible;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <header><div class="top"><h1>Caça-Promo</h1><button id="rf" aria-label="Atualizar">↻</button><button id="mn" aria-label="Menu">☰</button></div>
-<div id="fx"><div class="chips" id="cs"></div><div class="chips s" id="cc"></div><input id="q" type="search" placeholder="Buscar nas ofertas"></div></header>
+<div id="fx"><div class="chips" id="cs"></div><div class="chips s" id="cc"></div><div class="row" style="margin-top:8px"><input id="q" type="search" placeholder="Buscar nas ofertas"><button id="so"></button></div><div class="meta" id="stt"></div></div></header>
 <main id="v1"></main>
-<main id="v2" hidden><div class="row"><input id="sq" type="search" placeholder="Ex.: RTX 4070, air fryer, mouse"><button id="sb" class="pri">Buscar</button></div><div id="sr"></div></main>
-<main id="v3" hidden><div class="row"><input id="wn" placeholder="O que vigiar? Ex.: RTX 4060"><button id="wa" class="pri">＋</button></div><p class="meta">Avisamos quando um post novo dos seus canais citar esse nome. O app precisa estar aberto ou em segundo plano.</p><div id="wl" style="display:grid;gap:12px"></div></main>
+<main id="v2" hidden><div class="row"><input id="sq" type="search" placeholder="Ex.: tênis, RTX 4070, air fryer"><button id="sb" class="pri">Buscar</button></div><div id="sr"></div></main>
+<main id="v3" hidden><div class="row"><input id="wn" placeholder="Vigiar um nome. Ex.: RTX 4060"><button id="wa" class="pri">＋</button></div><p class="meta">Avisamos quando um post novo citar esse nome (app aberto ou em segundo plano).</p><div id="wl" style="display:grid;gap:12px"></div><h2 class="sec">Salvos (10 dias ou até tocar em ✕ Encerrou)</h2><div id="sl" style="display:grid;gap:12px"></div></main>
 <nav><button data-v="1" class="on">🔥<span>Ofertas</span></button><button data-v="2">🔎<span>Buscar</span></button><button data-v="3">★<span id="fc">Favoritos</span></button></nav>
 <div id="toast"></div>
 <div id="dr"><div id="pn">
-<h1>Menu</h1>
+<h1 style="color:var(--a)">Menu</h1>
 <h2>Tema</h2><div class="seg" id="th"><button data-v="dark">Preto neon</button><button data-v="light">Branco</button><button data-v="auto">Auto</button></div>
-<h2>Canais de ofertas do Telegram</h2>
+<h2>Canais do Telegram</h2>
 <textarea id="ch" rows="3" placeholder="@nomedocanal"></textarea>
-<p class="meta" style="margin-top:6px">No Telegram, abra o canal, toque no nome dele e copie o @ (o canal precisa ser público). Um por linha.</p>
+<p class="meta">Abra o canal no Telegram, toque no nome e copie o @ (público). Um por linha.</p>
 <button id="sv" class="full pri">Salvar canais</button>
+<h2>Colar ofertas do WhatsApp</h2>
+<input id="pl" placeholder="Nome do canal (opcional)" style="margin-bottom:8px">
+<textarea id="pw" rows="4" placeholder="Copie uma ou várias mensagens do canal e cole aqui"></textarea>
+<button id="pa" class="full pri">Adicionar às salvas</button>
+<p class="meta">O WhatsApp não deixa apps lerem canais. Cada produto colado precisa ter o link e fica salvo por 10 dias.</p>
 <button id="cl" class="full">Fechar</button>
 </div></div>
 <script>
 const $=s=>document.querySelector(s);
 const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
 const SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
-let theme=LS('theme','dark'),chans=LS('chans',[]),watch=LS('watch',[]),items=[],store='',cat='',view=1,failed=false;
-const STORES=[['Mercado Livre',/meli\.la|mercadoliv|mercadolib/i],['AliExpress',/aliexpress|ali\.ski/i],['Shopee',/shopee|shp\.ee/i],['Amazon',/amzn\.|amazon\./i],['Magalu',/magazineluiza|magalu/i],['Kabum',/kabum/i],['Terabyte',/terabyte/i],['Pichau',/pichau/i]];
-const CATS=[['Hardware',/placa de v[ií]deo|\bgpu\b|\brtx\b|\bgtx\b|radeon|processador|ryzen|core i\d|mem[oó]ria|\bram\b|ddr[345]|\bssd\b|nvme|placa-m[ãa]e|\bfonte\b|gabinete|cooler/i],['Periféricos',/\bmouse|teclado|headset|\bfone|controle|webcam|microfone|stream ?deck|mousepad/i],['Monitores e TV',/monitor|\btv\b|ultrawide/i],['Notebooks',/notebook|laptop|macbook/i],['Casa e cozinha',/geladeira|air ?fryer|fritadeira|fog[ãa]o|micro-?ondas|aspirador|cafeteira|liquidificador|lavadora/i],['Celular e áudio',/celular|smartphone|iphone|galaxy|xiaomi|redmi|\bpoco\b|caixa de som|soundbar|earbuds/i]];
+const TEN=10*864e5,T=(p,ms)=>Promise.race([p,new Promise((_,j)=>setTimeout(j,ms))]);
+let theme=LS('theme','dark'),chans=LS('chans',[]),watch=LS('watch',[]),saved=LS('saved',[]),feed=[],base=[],bych={},store='',cat='',sort=0,lim=40,loading=false,failed=false,lastLoad=0;
+const old=LS('manual',[]);if(old.length){saved=[...old.map(o=>({...o,k:'prod',pn:parseFloat((o.p||'').replace(/[^\d,]/g,'').replace(',','.'))||0,sv:o.ts||Date.now()})),...saved];SV('saved',saved);SV('manual',[])}
+const STORES=[['Mercado Livre',/meli\.la|mercadoliv|mercadolib/i],['AliExpress',/aliexpress|ali\.ski/i],['Shopee',/shopee|shp\.ee/i],['Amazon',/amzn\.|amazon\./i],['Magalu',/magazineluiza|magalu/i],['Shein',/shein/i],['Netshoes',/netshoes/i],['Centauro',/centauro/i],['Dafiti',/dafiti/i],['Americanas',/americanas/i],['Casas Bahia',/casasbahia/i],['Kabum',/kabum/i],['Terabyte',/terabyte/i],['Pichau',/pichau/i]];
+const CATS=[['Hardware',/placa de v[ií]deo|\bgpu\b|\brtx\b|\bgtx\b|radeon|processador|ryzen|core i\d|mem[oó]ria|\bram\b|ddr[345]|\bssd\b|nvme|placa-m[ãa]e|\bfonte\b|gabinete|cooler/i],['Periféricos',/\bmouse|teclado|headset|webcam|microfone|stream ?deck|mousepad|controle/i],['Monitores e TV',/monitor|\btv\b|ultrawide/i],['Notebooks',/notebook|laptop|macbook/i],['Celular e áudio',/celular|smartphone|iphone|galaxy|xiaomi|redmi|\bpoco\b|caixa de som|soundbar|earbuds|fone/i],['Casa e cozinha',/geladeira|air ?fryer|fritadeira|fog[ãa]o|micro-?ondas|aspirador|cafeteira|liquidificador|lavadora|panela|colch[ãa]o/i],['Roupas',/camisa|camiseta|blusa|moletom|jaqueta|casaco|cal[çc]a|bermuda|vestido|\bshort|cueca|\bmeia|bon[eé]\b|regata|jeans|legging|biqu[ií]ni|pijama|roupa/i],['Calçados',/t[eê]nis|sapato|sand[aá]lia|chinelo|\bbota|sapatilha|crocs|havaianas|rasteirinha/i],['Beleza e saúde',/perfume|shampoo|creme|maquiagem|protetor solar|whey|creatina|suplemento|barbeador|secador|skincare|hidratante/i],['Esporte',/bicicleta|\bbike|halter|esteira|garrafa t[eé]rmica|fitness|yoga|academia/i],['Brinquedos',/lego|brinquedo|boneca|pel[uú]cia|tabuleiro|carrinho/i],['Ferramentas',/furadeira|parafusadeira|ferramenta|lixadeira|maleta|serra/i],['Mercado',/arroz|azeite|chocolate|fralda|detergente|sab[aã]o|leite|caf[eé] /i]];
+const CUP=/cupom|cupons|resgat|moedas|roleta|girar|voucher|c[oó]digo|frete gr[aá]tis/i;
+const MODES=['Recentes','Relevantes','Menor preço'];
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const ago=t=>{if(!t)return'';const m=(Date.now()-t)/6e4;return m<60?'há '+Math.max(1,~~m)+' min':m<1440?'há '+~~(m/60)+' h':'há '+~~(m/1440)+' d'};
 const parseCh=t=>[...new Set(t.split(/\s+/).map(s=>(s.match(/(?:t\.me\/(?:s\/)?|@)?([A-Za-z][A-Za-z0-9_]{3,31})\/?$/)||[])[1]).filter(Boolean))];
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),4500)}
+const cl=i=>{const{_w,sim,best,diff,...r}=i;return r};
+const W=i=>i._w||(i._w=new Set(norm(i.t).replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(x=>x.length>2)));
+const hit=(i,t)=>{const h=norm(i.t+' '+i.txt);return norm(t).split(/\s+/).filter(Boolean).every(x=>h.includes(x))};
+const sc=i=>(i.v?Math.log10(i.v+1)*12:0)+(i.off||0)*.5+(i.cp?4:0)+(i.pn?6:0)+Math.max(0,24-(Date.now()-i.ts)/36e5);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),4000)}
 function applyTheme(){document.documentElement.dataset.t=theme==='auto'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'):theme;document.querySelectorAll('#th button').forEach(b=>b.classList.toggle('on',b.dataset.v===theme))}
+function mk(txt,links,o={}){const url=links.find(l=>STORES.some(s=>s[1].test(l)))||links[0];if(!url)return null;
+ const lines=txt.split('\n').map(s=>s.trim().replace(/^\[[^\]]*\]\s*[^:]{0,40}:\s*/,'')).filter(s=>s&&!/^https?:/.test(s));
+ const pr=txt.match(/R\$\s?[\d.]+(?:,\d{2})?/),cp=txt.match(/cupom[:\s]+([A-Za-z0-9]{3,})/i),of=txt.match(/(\d{1,2})\s?%\s?(?:off|de desconto)/i);
+ return{t:(lines[0]||'Oferta').replace(/[*_~]/g,'').slice(0,140),txt:txt.slice(0,600),p:pr?pr[0]:'',pn:pr?parseFloat(pr[0].replace(/[^\d,]/g,'').replace(',','.'))||0:0,cp:cp?cp[1]:'',off:of?+of[1]:0,url,st:(STORES.find(s=>s[1].test(url))||['Outras'])[0],k:!pr&&CUP.test(txt)?'cup':'prod',img:'',ts:0,...o}}
 async function tg(u){const h=await (await fetch('https://t.me/s/'+u)).text();const d=new DOMParser().parseFromString(h,'text/html');
  return [...d.querySelectorAll('.tgme_widget_message_wrap')].map(w=>{
   const te=w.querySelector('.tgme_widget_message_text');if(!te)return null;
-  const c=te.cloneNode(true);c.querySelectorAll('br').forEach(b=>b.replaceWith('\n'));const txt=c.textContent.trim();
+  const c=te.cloneNode(true);c.querySelectorAll('br').forEach(b=>b.replaceWith('\n'));
   const links=[...te.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).filter(x=>/^https?:/.test(x)&&!/t\.me/.test(x));
-  const url=links.find(l=>STORES.some(s=>s[1].test(l)))||links[0];if(!url)return null;
-  const id=w.querySelector('a.tgme_widget_message_date')?.getAttribute('href')||u+txt.slice(0,40);
-  const tm=w.querySelector('time')?.getAttribute('datetime');
+  const tm=w.querySelector('time')?.getAttribute('datetime'),vv=w.querySelector('.tgme_widget_message_views')?.textContent||'';
   const bg=(w.querySelector('.tgme_widget_message_photo_wrap,.link_preview_image,.link_preview_right_image')?.getAttribute('style')||'').match(/url\(['"]?([^'")]+)/);
-  const pr=txt.match(/R\$\s?[\d.]+(?:,\d{2})?/),cp=txt.match(/cupom[:\s]+([A-Za-z0-9]{3,})/i);
-  return{id,t:txt.split('\n').map(s=>s.trim()).filter(Boolean)[0]||'Oferta',txt,p:pr?pr[0]:'',cp:cp?cp[1]:'',url,st:(STORES.find(s=>s[1].test(url))||['Outras'])[0],img:bg?bg[1]:'',ts:tm?Date.parse(tm):0,ch:u}}).filter(Boolean)}
-async function load(){
- if(!chans.length){items=[];failed=false;return render()}
- $('#v1').innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';
- const rs=await Promise.allSettled(chans.map(tg));const seen=new Set();
- items=rs.flatMap(r=>r.status==='fulfilled'?r.value:[]).filter(i=>!seen.has(i.id)&&seen.add(i.id)).sort((a,b)=>b.ts-a.ts);
- failed=!items.length;if(items.length)check();render()}
-const card=(i,n=0)=>`<article class="card" style="animation-delay:${Math.min(n,10)*35}ms">${i.img?`<img loading="lazy" src="${esc(i.img)}" alt="" onerror="this.outerHTML='<div class=ph>🛒</div>'">`:'<div class="ph">🛒</div>'}<div><span class="tag">${esc(i.st)}</span><h3>${esc(i.t)}</h3><div class="pr">${i.p?`<b>${esc(i.p)}</b>`:''}${i.cp?`<button class="cp" data-c="${esc(i.cp)}">🎟 ${esc(i.cp)}</button>`:''}</div><div class="meta">${ago(i.ts)} · @${esc(i.ch)}</div></div><a class="go" href="${esc(i.url)}" target="_blank" rel="noopener">Ver oferta</a></article>`;
-const hit=(i,t)=>{const ws=norm(t).split(/\s+/).filter(Boolean);const h=norm(i.t+' '+i.txt);return ws.every(x=>h.includes(x))};
+  const txt=c.textContent.trim();
+  return mk(txt,links,{id:w.querySelector('a.tgme_widget_message_date')?.getAttribute('href')||u+txt.slice(0,40),img:bg?bg[1]:'',ts:tm?Date.parse(tm):0,ch:'@'+u,v:(parseFloat(vv)||0)*(/K/i.test(vv)?1e3:/M/i.test(vv)?1e6:1)})}).filter(Boolean)}
+function parsePaste(t,lab){const lines=t.split('\n').map(s=>s.trim()).filter(Boolean),bl=[];let cur=[],seen=false;
+ for(const l of lines){if(/https?:\/\/\S+/.test(l)){cur.push(l);seen=true}else{if(seen){bl.push(cur);cur=[];seen=false}cur.push(l)}}
+ if(cur.length)bl.push(cur);
+ return bl.map(b=>{const tx=b.join('\n');return mk(tx,tx.match(/https?:\/\/[^\s<>")]+/g)||[],{ch:lab})}).filter(Boolean)}
+function dd(a){const out=[];for(const i of a){if(!out.some(o=>{if(o.url===i.url)return true;if(!i.p||o.p!==i.p)return false;const w=W(i),v=W(o);let n=0;w.forEach(x=>v.has(x)&&n++);return n/Math.max(1,Math.min(w.size,v.size))>=.6}))out.push(i)}return out}
+function rebuild(){saved=saved.filter(s=>Date.now()-s.sv<TEN);
+ base=dd([...feed,...saved.filter(s=>s.man)].sort((a,b)=>b.ts-a.ts));
+ const ps=base.filter(i=>i.k==='prod'&&i.pn>0);ps.forEach(i=>{i.sim=null;i.best=false;i.diff=0});
+ for(let x=0;x<ps.length;x++)for(let y=x+1;y<ps.length;y++){const A=ps[x],B=ps[y];if(A.pn===B.pn)continue;const a=W(A),b=W(B);let n=0;a.forEach(w=>b.has(w)&&n++);
+  if(n>=3&&n/Math.min(a.size,b.size)>=.7){(A.sim=A.sim||[]).push(B);(B.sim=B.sim||[]).push(A)}}
+ ps.forEach(i=>{if(i.sim){const m=Math.min(i.pn,...i.sim.map(o=>o.pn));i.best=i.pn===m;i.diff=i.pn-m}})}
+const card=(i,n=0,mo='')=>{const s=saved.some(x=>x.id===i.id);
+ return `<article class="card" style="animation-delay:${Math.min(n,10)*35}ms">${i.img?`<img loading="lazy" src="${esc(i.img)}" alt="" onerror="this.outerHTML='<div class=ph>🛒</div>'">`:'<div class="ph">🛒</div>'}<div><span class="tag">${esc(i.st)}${i.best?'<span class="bst">💰 menor preço</span>':''}</span><h3>${esc(i.t)}</h3><div class="pr">${i.p?`<b>${esc(i.p)}</b>`:''}${i.off?`<span class="off">-${i.off}%</span>`:''}${i.cp?`<button class="cp" data-c="${esc(i.cp)}">🎟 ${esc(i.cp)}</button>`:''}</div>${i.diff>0?`<div class="meta">+${brl(i.diff)} que a melhor oferta</div>`:''}<div class="meta">${mo?'expira em '+Math.max(1,Math.ceil((TEN-(Date.now()-i.sv))/864e5))+' d':ago(i.ts)} · ${esc(i.ch||'')}</div></div>${mo?`<button class="sv rm" data-rm="${esc(i.id)}">✕ Encerrou</button>`:`<button class="sv ${s?'on':''}" data-sv="${esc(i.id)}" aria-label="Salvar">${s?'★':'☆'}</button>`}<a class="go" href="${esc(i.url)}" target="_blank" rel="noopener">Ver oferta</a></article>`};
 function render(){const q=$('#q').value.trim();
- const ss=['',...STORES.map(s=>s[0]).concat('Outras').filter(n=>items.some(i=>i.st===n))];
+ const ss=['',...STORES.map(s=>s[0]).concat('Outras').filter(n=>base.some(i=>i.st===n))];
  $('#cs').innerHTML=ss.map(n=>`<button data-s="${n}" class="${n===store?'on':''}">${n||'Todas'}</button>`).join('');
- const cs=['',...CATS.filter(c=>items.some(i=>c[1].test(i.t+' '+i.txt))).map(c=>c[0])];
- $('#cc').innerHTML=cs.length>1?cs.map(n=>`<button data-c="${n}" class="${n===cat?'on':''}">${n||'Todas'}</button>`).join(''):'';
+ const cs=[['','Todas'],...(base.some(i=>i.k==='cup')?[['__cup','🎟 Cupons e roletas']]:[]),...CATS.filter(c=>base.some(i=>i.k==='prod'&&c[1].test(i.t+' '+i.txt))).map(c=>[c[0],c[0]])];
+ $('#cc').innerHTML=cs.length>1?cs.map(c=>`<button data-c="${c[0]}" class="${c[0]===cat?'on':''}">${c[1]}</button>`).join(''):'';
  const re=CATS.find(c=>c[0]===cat)?.[1];
- const a=items.filter(i=>(!store||i.st===store)&&(!re||re.test(i.t+' '+i.txt))&&(!q||hit(i,q)));
- $('#v1').innerHTML=!chans.length?'<div class="msg">Adicione um canal de ofertas do Telegram para ver as promoções aqui.<br><button id="ac">Adicionar canal</button></div>':failed?'<div class="msg">Não consegui ler os posts. Confira o @ do canal (ele precisa ser público) e a internet.</div>':a.length?a.map(card).join(''):'<div class="msg">Nada encontrado com esse filtro.</div>';
- renderW()}
-function check(){watch.forEach(w=>{const m=items.filter(i=>hit(i,w.name));const nw=m.filter(i=>!w.seen.includes(i.id));w.seen=m.map(i=>i.id);
- if(w.init&&nw.length)notify('🔥 '+w.name,nw[0].t+(nw[0].p?' · '+nw[0].p:''));w.init=true});SV('watch',watch)}
+ let a=base.filter(i=>(cat==='__cup'?i.k==='cup':i.k==='prod')&&(!store||i.st===store)&&(!re||re.test(i.t+' '+i.txt))&&(!q||hit(i,q)));
+ if(sort===1)a=[...a].sort((x,y)=>sc(y)-sc(x));if(sort===2)a=[...a].sort((x,y)=>(x.pn||1e12)-(y.pn||1e12));
+ $('#so').textContent=MODES[sort];
+ $('#v1').innerHTML=!chans.length&&!base.length?'<div class="msg">Adicione um canal do Telegram ou cole ofertas do WhatsApp no menu.<br><button id="ac">Abrir menu</button></div>':!base.length?(loading?'<div class="sk"></div><div class="sk"></div><div class="sk"></div>':`<div class="msg">${failed?'Não consegui ler os posts. Confira o @ do canal (público) e a internet.':'Nada por aqui ainda.'}</div>`):a.length?a.slice(0,lim).map(card).join('')+(a.length>lim?'<button class="mo" id="mo">Mostrar mais</button>':''):'<div class="msg">Nada encontrado com esse filtro.</div>';
+ $('#fc').textContent='Favoritos'+(watch.length+saved.length?' ('+(watch.length+saved.length)+')':'');
+ $('#wl').innerHTML=watch.length?watch.map(w=>{const m=base.filter(i=>hit(i,w.name)).slice(0,2);return `<div><div class="row" style="margin-bottom:6px"><b style="flex:1">${esc(w.name)}</b><button data-w="${w.id}" aria-label="Remover">✕</button></div>${m.length?m.map(card).join(''):'<p class="meta">Sem promoção nos posts recentes.</p>'}</div>`}).join(''):'';
+ $('#sl').innerHTML=saved.length?saved.map((i,n)=>card(i,n,'s')).join(''):'<p class="msg" style="padding:16px">Toque na ☆ de uma oferta para salvar.</p>'}
 const NP=()=>window.Capacitor?.Plugins?.LocalNotifications;
 async function notify(t,b){toast(t+' — '+b);try{await NP()?.schedule({notifications:[{id:Math.floor(Math.random()*2e9),title:t,body:b}]})}catch{}}
+function check(){watch.forEach(w=>{const m=base.filter(i=>hit(i,w.name));const nw=m.filter(i=>!w.seen.includes(i.id));w.seen=m.map(i=>i.id);
+ if(w.init&&nw.length)notify('🔥 '+w.name,nw[0].t+(nw[0].p?' · '+nw[0].p:''));w.init=true});SV('watch',watch)}
 function addW(n){n=n.trim();if(!n||watch.some(w=>norm(w.name)===norm(n))){toast('Digite um nome que ainda não está na lista.');return false}
  watch.push({id:Date.now()+'',name:n,seen:[],init:false});try{NP()?.requestPermissions()}catch{}check();SV('watch',watch);render();return true}
-function renderW(){$('#fc').textContent='Favoritos'+(watch.length?' ('+watch.length+')':'');
- $('#wl').innerHTML=watch.length?watch.map(w=>{const m=items.filter(i=>hit(i,w.name)).slice(0,2);
- return `<div><div class="row" style="align-items:center;margin-bottom:6px"><b style="flex:1">${esc(w.name)}</b><button data-w="${w.id}" aria-label="Remover">✕</button></div>${m.length?m.map(card).join(''):'<p class="meta">Sem promoção nos posts recentes.</p>'}</div>`}).join(''):'<div class="msg">Nada vigiado ainda. Digite um nome acima.</div>'}
+const stt=m=>$('#stt').textContent=m;
+async function load(){if(loading)return;
+ if(!chans.length){feed=[];rebuild();return render()}
+ loading=true;lastLoad=Date.now();stt('Atualizando…');
+ const c=LS('cache',null);if(!feed.length&&c?.items){feed=c.items;rebuild()}render();
+ let ok=0;
+ await Promise.all(chans.map(async u=>{try{bych[u]=await T(tg(u),20000);ok++;feed=Object.values(bych).flat().sort((a,b)=>b.ts-a.ts);rebuild();render()}catch{}}));
+ loading=false;failed=!feed.length;
+ if(ok){SV('cache',{t:Date.now(),items:feed.slice(0,80).map(cl)});check();stt('Atualizado agora')}else stt(feed.length?'Sem conexão. Mostrando as últimas ofertas guardadas.':'');
+ render()}
+function toggleSave(id){if(saved.some(s=>s.id===id))saved=saved.filter(s=>s.id!==id);else{const it=base.find(i=>i.id===id);if(!it)return;saved=[{...cl(it),sv:Date.now()},...saved].slice(0,300);toast('Salvo por 10 dias.')}
+ SV('saved',saved);rebuild();render()}
 function links(t){const e=encodeURIComponent(t),h=e.replace(/%20/g,'-');
- return [['Mercado Livre','https://lista.mercadolivre.com.br/'+h],['AliExpress','https://pt.aliexpress.com/wholesale?SearchText='+e],['Shopee','https://shopee.com.br/search?keyword='+e],['Amazon','https://www.amazon.com.br/s?k='+e],['Kabum','https://www.kabum.com.br/busca/'+e],['Pichau','https://www.pichau.com.br/search?q='+e],['Terabyte','https://www.terabyteshop.com.br/busca?str='+e],['Magalu','https://www.magazineluiza.com.br/busca/'+e+'/'],['Google Shopping','https://www.google.com/search?tbm=shop&q='+e],['Zoom','https://www.zoom.com.br/search?q='+e],['Buscapé','https://www.buscape.com.br/search?q='+e]].map(x=>`<a class="lk" href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('')}
-function search(){const t=$('#sq').value.trim();if(!t)return;const m=items.filter(i=>hit(i,t));
- $('#sr').innerHTML=`<button id="sw" class="full pri">☆ Vigiar "${esc(t)}"</button><div class="meta" style="margin:14px 0 8px">Nas ofertas dos seus canais</div><div style="display:grid;gap:12px">${m.length?m.map(card).join(''):'<p class="meta">Nenhum post recente com esse nome.</p>'}</div><div class="meta" style="margin:16px 0 8px">Comparar preços nas lojas</div>${links(t)}`;
+ return [['Mercado Livre','https://lista.mercadolivre.com.br/'+h],['AliExpress','https://pt.aliexpress.com/wholesale?SearchText='+e],['Shopee','https://shopee.com.br/search?keyword='+e],['Amazon','https://www.amazon.com.br/s?k='+e],['Shein','https://br.shein.com/pdsearch/'+e+'/'],['Netshoes','https://www.netshoes.com.br/busca?q='+e],['Kabum','https://www.kabum.com.br/busca/'+e],['Magalu','https://www.magazineluiza.com.br/busca/'+e+'/'],['Google Shopping','https://www.google.com/search?tbm=shop&q='+e],['Zoom','https://www.zoom.com.br/search?q='+e],['Buscapé','https://www.buscape.com.br/search?q='+e]].map(x=>`<a class="lk" href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('')}
+function search(){const t=$('#sq').value.trim();if(!t)return;const m=base.filter(i=>i.k==='prod'&&hit(i,t));
+ $('#sr').innerHTML=`<button id="sw" class="full pri">☆ Vigiar "${esc(t)}"</button><div class="meta" style="margin:14px 0 8px">Nas ofertas que você acompanha</div><div style="display:grid;gap:12px">${m.length?m.slice(0,20).map(card).join(''):'<p class="meta">Nenhum post recente com esse nome.</p>'}</div><div class="meta" style="margin:16px 0 8px">Comparar preços nas lojas</div>${links(t)}`;
  $('#sw').onclick=()=>{if(addW(t))toast('Vigiando "'+t+'". Veja em Favoritos.')}}
-function setV(n){view=n;['#v1','#v2','#v3'].forEach((s,i)=>$(s).hidden=i+1!==n);$('#fx').hidden=n!==1;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',+b.dataset.v===n))}
-document.addEventListener('click',e=>{const t=e.target;
- if(t.closest('nav button'))return setV(+t.closest('nav button').dataset.v);
- const cp=t.closest('.cp');if(cp){navigator.clipboard?.writeText(cp.dataset.c).then(()=>toast('Cupom '+cp.dataset.c+' copiado'),()=>toast('Cupom: '+cp.dataset.c));return}
- const w=t.closest('[data-w]');if(w){watch=watch.filter(x=>x.id!==w.dataset.w);SV('watch',watch);return render()}
- if(t.closest('#ac'))return $('#dr').classList.add('open');
- const s=t.closest('#cs button');if(s){store=s.dataset.s;return render()}
- const c=t.closest('#cc button');if(c){cat=c.dataset.c;return render()}});
-$('#q').oninput=render;$('#rf').onclick=load;$('#sb').onclick=search;$('#sq').addEventListener('keydown',e=>{if(e.key==='Enter')search()});
+function setV(n){['#v1','#v2','#v3'].forEach((s,i)=>$(s).hidden=i+1!==n);$('#fx').hidden=n!==1;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',+b.dataset.v===n))}
+document.addEventListener('click',e=>{const t=e.target,g=s=>t.closest(s);
+ if(g('nav button'))return setV(+g('nav button').dataset.v);
+ if(g('.cp')){const c=g('.cp').dataset.c;return navigator.clipboard?.writeText(c).then(()=>toast('Cupom '+c+' copiado'),()=>toast('Cupom: '+c))}
+ if(g('[data-sv]'))return toggleSave(g('[data-sv]').dataset.sv);
+ if(g('[data-rm]')){saved=saved.filter(s=>s.id!==g('[data-rm]').dataset.rm);SV('saved',saved);rebuild();render();return toast('Oferta removida.')}
+ if(g('[data-w]')){watch=watch.filter(x=>x.id!==g('[data-w]').dataset.w);SV('watch',watch);return render()}
+ if(g('#ac'))return $('#dr').classList.add('open');
+ if(g('#mo')){lim+=40;return render()}
+ if(g('#cs button')){store=g('#cs button').dataset.s;lim=40;return render()}
+ if(g('#cc button')){cat=g('#cc button').dataset.c;lim=40;return render()}});
+$('#q').oninput=()=>{lim=40;render()};$('#so').onclick=()=>{sort=(sort+1)%3;render()};
+$('#rf').onclick=()=>{lastLoad=0;load()};$('#sb').onclick=search;$('#sq').addEventListener('keydown',e=>{if(e.key==='Enter')search()});
 $('#wa').onclick=()=>{if(addW($('#wn').value))$('#wn').value=''};
 $('#mn').onclick=()=>{$('#ch').value=chans.map(c=>'@'+c).join('\n');$('#dr').classList.add('open')};
 $('#cl').onclick=()=>$('#dr').classList.remove('open');
 $('#dr').onclick=e=>{if(e.target.id==='dr')$('#dr').classList.remove('open')};
 $('#th').onclick=e=>{const b=e.target.closest('button');if(!b)return;theme=b.dataset.v;SV('theme',theme);applyTheme()};
-$('#sv').onclick=()=>{chans=parseCh($('#ch').value);SV('chans',chans);$('#dr').classList.remove('open');load()};
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)load()});
+$('#sv').onclick=()=>{chans=parseCh($('#ch').value);SV('chans',chans);bych={};$('#dr').classList.remove('open');load()};
+$('#pa').onclick=()=>{const arr=parsePaste($('#pw').value,$('#pl').value.trim()||'WhatsApp');if(!arr.length)return toast('Não achei links nessa mensagem.');
+ arr.forEach((o,n)=>{o.id='m'+Date.now()+n;o.man=1;o.ts=Date.now();o.sv=Date.now()});
+ saved=[...arr,...saved].slice(0,300);SV('saved',saved);$('#pw').value='';$('#dr').classList.remove('open');rebuild();render();toast(arr.length+' oferta(s) salva(s) por 10 dias.')};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastLoad>3e5)load()});
 setInterval(load,30*60e3);
-applyTheme();load();
-</script><script src="extra.js"></script></body></html>
+applyTheme();rebuild();render();load();
+</script></body></html>
